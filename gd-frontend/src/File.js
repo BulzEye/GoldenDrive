@@ -1,13 +1,13 @@
 import "./File.css";
 
-const File = () => {
+const File = (props) => {
     return ( 
         <div className="fileList">
             <div className="fileName">
-                Test File
+                {props.info.name}
             </div>
             <div className="fileType">
-                Text document (.txt)
+                {props.info.type}
             </div>
         </div>
      );
