@@ -1,0 +1,31 @@
+{
+  "name": "goldendrive",
+  "version": "1.0.0",
+  "description": "A cloud storage solution running on the MERN stack.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon server.js",
+    "client": "node start-client.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BulzEye/GoldenDrive.git"
+  },
+  "keywords": [
+    "drive",
+    "goldendrive"
+  ],
+  "author": "BulzEye",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BulzEye/GoldenDrive/issues"
+  },
+  "homepage": "https://github.com/BulzEye/GoldenDrive#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongodb": "^4.2.1",
+    "mongoose": "^6.0.14"
+  }
+}
