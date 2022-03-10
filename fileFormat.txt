@@ -1,0 +1,8 @@
+File {name: 'campus return reason v2.txt', lastModified: 1646754584297, lastModifiedDate: Tue Mar 08 2022 21:19:44 GMT+0530 (India Standard Time), webkitRelativePath: '', size: 1648, …}
+lastModified: 1646754584297
+lastModifiedDate: Tue Mar 08 2022 21:19:44 GMT+0530 (India Standard Time) {}
+name: "campus return reason v2.txt"
+size: 1648
+type: "text/plain"
+webkitRelativePath: ""
+[[Prototype]]: File

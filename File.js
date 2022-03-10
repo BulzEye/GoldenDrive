@@ -1,13 +1,18 @@
 const mongoose = require("mongoose");
+const { ConnectionCreatedEvent } = require("mongoose/node_modules/mongodb");
 const Schema = mongoose.Schema;
 
 const fileSchema = new Schema({
-    fileName: {
+    name: {
         type: String,
         required: true
     },
-    fileType: {
+    type: {
         type: String,
+        required: true
+    },
+    size: {
+        type: Number,
         required: true
     }
 }, { timestamps: true });
@@ -15,3 +20,7 @@ const fileSchema = new Schema({
 const File = mongoose.model("File", fileSchema);
 
 module.exports = File;
+
+// Fields to be added:
+// - Date created, date modified
+// - Size of file

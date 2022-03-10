@@ -1,0 +1,21 @@
+.upload label {
+    font-size: 2rem;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #6b5b95;
+    color: white;
+    transition: 0.2s background-color;
+}
+
+.upload label:hover {
+    background-color: #9d90bb;
+    cursor: pointer;
+}
+
+.upload input[type=file] {
+    display: none;
+}

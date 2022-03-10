@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/BulzEye/GoldenDrive#readme",
   "dependencies": {
+    "bootstrap-icons": "^1.8.1",
     "express": "^4.17.2",
     "express-fileupload": "^1.2.1",
     "mongodb": "^4.2.1",
