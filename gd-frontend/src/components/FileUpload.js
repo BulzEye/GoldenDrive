@@ -1,7 +1,8 @@
+import { process_params } from "express/lib/router";
 import { useState } from "react";
 import "./FileUpload.css"
 
-const FileUpload = () => {
+const FileUpload = (props) => {
     const [file, setFile] = useState(null);
 
     // TODO: change it so that file is uploaded immediately after it is selected
@@ -62,6 +63,7 @@ const FileUpload = () => {
                     console.log("ERROR uploading file: " + err);
                 });
             }
+            props.setDependencies(true);
         });
     }
 

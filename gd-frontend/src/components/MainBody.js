@@ -16,20 +16,22 @@ const MainBody = () => {
     // ];
 
     const [files, setFiles] = useState([]);
+    const [dependencies, setDependencies] = useState(false);
 
     useEffect(() => {
       fetch("/allFiles")
       .then(res => res.json())
       .then((recdFiles) => {
         setFiles(recdFiles);
+        setDependencies(false);
       });
-    }, []);
+    }, [dependencies]);
 
     return ( 
         <div className="mainBody">
             { files.map((file) => (<File info={file} menuOpen={false}/>)) }
             {/* <File info={}/> */}
-            <FileUpload />
+            <FileUpload setDependencies={setDependencies}/>
         </div>
      );
 }
