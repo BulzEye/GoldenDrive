@@ -22,10 +22,26 @@ const FileUpload = () => {
             else {
                 // display prompt, do further actions
                 console.log("File name not unique");
-                let shouldDuplicate = prompt("A file with a similar name exists!\nDo you want to keep both files or replace the existing file with the new one?\nPress 'OK' to keep both, or 'Cancel' to replace");
+                let shouldDuplicate = window.confirm("A file with a similar name exists!\nDo you want to keep both files or replace the existing file with the new one?\nPress 'OK' to keep both, or 'Cancel' to replace");
                 formData.append("shouldDuplicate", shouldDuplicate);
                 // send the response to the server
-                
+                fetch("/upload", {
+                    method: "POST",
+                    body: formData
+                })
+                .then((res) => {
+                    console.log("Uploaded file");
+                    console.log(res);
+                    if(res.status === 200) {
+                        alert("File uploaded");
+                    }
+                    else {
+                        alert(`ERROR ${res.status}: ${res.statusText}`);
+                    }
+                })
+                .catch((err) => {
+                    console.log("ERROR uploading file: " + err);
+                });
             }
         })
         // fetch("/upload", {
