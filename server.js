@@ -25,13 +25,27 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     console.log("ERROR in connecting to database: " + err);
 });
 
+app.get("/allFiles", (req, res) => {
+    File.find()
+    .then((files) => {
+        res.json(files);
+    })
+    .catch((err) => {
+        console.log("ERROR in displaying files");
+        res.status(404).send("Could not find files");
+    });
+})
+
 app.get("/uploadCheck/:fileName", (req, res) => {
     const toCheckName = req.params.fileName;
     File.findOne({name: toCheckName}, (err, file) => {
+        console.log(file);
         if(file) {
+            console.log("Not unique");
             res.json({isUnique: false});
         }
         else {
+            console.log("Unique");
             res.json({isUnique: true});
         }
     })
@@ -80,7 +94,7 @@ app.post("/upload", (req, res) => {
             });
         });
     }
-    else {
+    else if(req.body.shouldDuplicate === "false") {
         console.log("We will replace");
         File.findOneAndDelete({name: filerec.name}, (err, file) => {
             if(err) console.log(`ERROR: ${err}`);
@@ -108,6 +122,30 @@ app.post("/upload", (req, res) => {
             });
         });
 
+    }
+    else {
+        filerec.mv(pathname, (err) => {
+            if(err) {
+                console.log(`ERROR: ${err}`);
+            }
+            else {
+                console.log(`Saved file at ${pathname}`);
+                console.log(filerec.name);
+                const file = new File({
+                    name: filerec.name,
+                    type: filerec.name.substring(filerec.name.lastIndexOf(".")),
+                    size: filerec.size
+                });
+                file.save()
+                .then(() => {
+                    console.log("File saved in db");
+                    // res.json({status: "File saved in db"});
+                })
+                .catch((err) => {
+                    console.log(`ERROR in saving to db: ${err}`);
+                });
+            }
+        });
     }
     // TODO: add section for detecting duplicate files
 

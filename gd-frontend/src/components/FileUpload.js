@@ -14,10 +14,29 @@ const FileUpload = () => {
         // setFile(formData);
         console.log(files[0]);
         fetch(`/uploadCheck/${files[0].name}`)
-        .then((res) => {
-            if(res.json().isUnique) {
+        .then((res) => res.json())
+        .then((response) => {
+            console.log(response);
+            if(response.isUnique) {
                 // fetch file
                 console.log("File name unique");
+                fetch("/upload", {
+                    method: "POST",
+                    body: formData
+                })
+                .then((res) => {
+                    console.log("Uploaded file");
+                    console.log(res);
+                    if(res.status === 200) {
+                        alert("File uploaded");
+                    }
+                    else {
+                        alert(`ERROR ${res.status}: ${res.statusText}`);
+                    }
+                })
+                .catch((err) => {
+                    console.log("ERROR uploading file: " + err);
+                });
             }
             else {
                 // display prompt, do further actions
@@ -43,24 +62,7 @@ const FileUpload = () => {
                     console.log("ERROR uploading file: " + err);
                 });
             }
-        })
-        // fetch("/upload", {
-        //     method: "POST",
-        //     body: formData
-        // })
-        // .then((res) => {
-        //     console.log("Uploaded file");
-        //     console.log(res);
-        //     if(res.status === 200) {
-        //         alert("File uploaded");
-        //     }
-        //     else {
-        //         alert(`ERROR ${res.status}: ${res.statusText}`);
-        //     }
-        // })
-        // .catch((err) => {
-        //     console.log("ERROR uploading file: " + err);
-        // });
+        });
     }
 
     let submitFile = () => {
