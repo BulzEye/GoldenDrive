@@ -40,7 +40,7 @@ div.fileMenu:hover i {
 
 .menu {
     position: absolute;
-    right: 5px;
+    right: 0px;
     top: 21px;
     z-index: 1;
     border-radius: 5px;
@@ -51,16 +51,41 @@ div.fileMenu:hover i {
 
 .menu ul {
     list-style-type: none;
-    padding: 5px;
+    padding: 0px;
     margin: 0px;
 }
 
 .menu ul li {
     padding: 5px;
-    border-top: 1px solid grey;
+    /* border-top: 1px solid grey; */
     cursor: pointer;
+    /* border-radius: 5px 5px 0px 0px; */
+    transition: background-color 0.2s;
+}
+
+.menu ul li:hover {
+    background-color: lightgrey;
+}
+
+.menu hr {
+    margin: 0px;
+    background-color: black;
+    /* height: 0px; */
+    width: 90%;
+    height: 1px;
+    margin: auto;
+    /* border-top: 1px solid black; */
+    /* border-bottom: 1px solid black; */
+    border: none;
+    border-top: none;
+    border-bottom: none;
 }
 
 .menu ul li:first-child {
-    border-top: none;
+    /* border-top: none; */
+    border-radius: 5px 5px 0px 0px;
+}
+
+.menu ul li:last-child {
+    border-radius: 0px 0px 5px 5px;
 }

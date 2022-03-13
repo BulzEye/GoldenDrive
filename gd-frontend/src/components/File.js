@@ -14,7 +14,22 @@ const File = (props) => {
         }
     }
 
-    
+    const deleteFile = () => {
+        if(window.confirm("Do you want to delete this file?")) {
+            // console.log("true");
+            fetch(`/deletefile/${props.info._id}`, {
+                method: "DELETE",
+            })
+            .then(() => {
+                console.log("Deleted file");
+                alert("File deleted");
+                props.setDependencies(true); // to force reload of home page
+            })
+            .catch((err) => {
+                console.log("ERROR deleting file: " + err);
+            });
+        }
+    }
 
     return ( 
         <div className="fileItem">
@@ -31,7 +46,8 @@ const File = (props) => {
                     <div className="menu">
                         <ul>
                             <li>Rename</li>
-                            <li>Delete</li>
+                            <hr />
+                            <li onClick={deleteFile}>Delete</li>
                         </ul>
                     </div>
                 </div>

@@ -2,6 +2,7 @@ const express = require("express");
 const fileUpload = require("express-fileupload");
 const mongoose = require("mongoose");
 const File = require("./File");
+const fs = require("fs");
 
 const app = express();
 
@@ -173,5 +174,27 @@ app.post("/upload", (req, res) => {
     // });
     res.send("Received file!<br /><a href=\"/\">Return Home</a>");
 });
+
+app.delete("/deletefile/:id", (req, res) => {
+    const id = req.params.id;
+    File.findByIdAndDelete(id)
+    .then((result) => {
+        console.log(result);
+        fs.unlink(`${__dirname}/files/${result.name}`, err => {
+            if(err) {
+                console.log("ERROR in deleting file from file system: " + err);
+                res.json({success: false});
+            }
+            else {
+                console.log("Deleted file from filesystem");
+                res.json({success: true});
+            }
+        });
+    })
+    .catch((err) => {
+        console.log(`ERROR in deleting file record: ${err}`);
+        res.json({success: false});
+    });
+})
 
 

@@ -29,7 +29,7 @@ const MainBody = () => {
 
     return ( 
         <div className="mainBody">
-            { files.map((file) => (<File info={file} menuOpen={false}/>)) }
+            { files.map((file) => (<File key={file._id} info={file} menuOpen={false} setDependencies={setDependencies}/>)) }
             {/* <File info={}/> */}
             <FileUpload setDependencies={setDependencies}/>
         </div>
