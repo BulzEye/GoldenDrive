@@ -1,3 +1,9 @@
+.upload {
+    position: absolute;
+    bottom: var(--x-padding);
+    right: var(--x-padding);
+}
+
 .upload label {
     font-size: 2rem;
     border-radius: 50%;
