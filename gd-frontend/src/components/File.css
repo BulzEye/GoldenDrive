@@ -1,7 +1,4 @@
 .fileItem {
-    position: relative;
-}
-.fileList {
     display:flex;
     background-color: beige;
     font-size: 1rem;
@@ -13,6 +10,15 @@
     position: relative;
 }
 
+/* span.nameText {
+    margin: 2px 0px;
+} */
+
+input#fileNameInput {
+    font-size: 1rem;
+    padding: 0px;
+}
+
 div.fileMenu {
     display: flex;
     align-items: center;
@@ -21,9 +27,9 @@ div.fileMenu {
     position: relative;
 }
 
-div.fileMenu:hover div.menu {
+/* div.fileMenu:hover div.menu {
     display: block;
-}
+} */
 
 div.menu:hover {
     display: block;
@@ -46,7 +52,7 @@ div.fileMenu:hover i {
     border-radius: 5px;
     border: 1px solid black;
     background-color: white;
-    display: none;
+    /* display: none; */
 }
 
 .menu ul {
@@ -88,4 +94,11 @@ div.fileMenu:hover i {
 
 .menu ul li:last-child {
     border-radius: 0px 0px 5px 5px;
+}
+
+.menu.rightClickMenu {
+    display: none;
+    position: fixed;
+    width: auto;
+    right: auto;
 }

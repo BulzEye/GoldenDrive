@@ -4,13 +4,26 @@ import "./File.css";
 const File = (props) => {
 
     const [menuOpen, setMenuOpen] = useState(false);
+    const [rmenuOpen, setRMenuOpen] = useState(false);
+    const [rmenuPos, setRMenuPos] = useState([0, 0]);
+    const [renameMode, setRenameMode] = useState(false);
+    const [fileName, setFileName] = useState({initial: props.info.name, current: props.info.name});
 
-    const menuOpenClose = (shouldOpen) => {
-        if(shouldOpen) {
-            setMenuOpen(true);
-        }
-        else {
-            setMenuOpen(false);
+    const menuOpenClose = (e) => {
+        setMenuOpen(!menuOpen);
+        e.stopPropagation();
+    }
+
+    document.addEventListener("click", () => {setMenuOpen(false); setRMenuOpen(false)});
+
+    const renameFile = () => {
+        setFileName({
+            ...fileName,
+            initial: fileName.current
+        })
+        setRenameMode(!renameMode);
+        if(fileName.current !== fileName.initial) {
+            alert("File name changed");
         }
     }
 
@@ -32,24 +45,49 @@ const File = (props) => {
     }
 
     return ( 
-        <div className="fileItem">
-            <div className="fileList">
-                <div className="fileName">
-                    {props.info.name}
-                </div>
-                {/* <div className="fileType">
+        <div className="fileItem" onContextMenu={(e) => {
+            console.log(e);
+            e.preventDefault();
+            setRMenuPos([e.pageX, e.pageY]);
+            setRMenuOpen(true);
+        }
+        }>
+            <form>
+            <div className="fileName">
+                <span className="nameText">
+                    {!renameMode && fileName.current}
+                </span>
+                {renameMode && <input 
+                    type="text" 
+                    name="fileName" 
+                    id="fileNameInput" 
+                    value={fileName.current}
+                    onChange={(e) => {setFileName({...fileName, current: e.target.value})}}
+                />}
+                <span className="nameText">
                     {props.info.type}
-                </div> */}
-                <div className="fileMenu">
-                    <i className="bi bi-three-dots-vertical"></i>
-                    {/* <i className="material-icons">more_vert</i> */}
-                    <div className="menu">
-                        <ul>
-                            <li>Rename</li>
-                            <hr />
-                            <li onClick={deleteFile}>Delete</li>
-                        </ul>
-                    </div>
+                </span>
+            </div>
+            </form>
+            {/* <div className="fileType">
+                {props.info.type}
+            </div> */}
+            <div className="fileMenu">
+                <i className="bi bi-three-dots-vertical" onClick={menuOpenClose}></i>
+                {/* <i className="material-icons">more_vert</i> */}
+                {menuOpen && <div className="menu">
+                    <ul>
+                        <li onClick={renameFile}>Rename</li>
+                        <hr />
+                        <li onClick={deleteFile}>Delete</li>
+                    </ul>
+                </div>}
+                <div className="menu rightClickMenu" style={{display: (rmenuOpen ? "block" : "none"), left: rmenuPos[0], top: rmenuPos[1]}}>
+                    <ul>
+                        <li>Rename</li>
+                        <hr />
+                        <li onClick={deleteFile}>Delete</li>
+                    </ul>
                 </div>
             </div>
         </div>

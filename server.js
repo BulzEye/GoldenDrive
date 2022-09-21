@@ -69,7 +69,7 @@ app.post("/upload", (req, res) => {
             if(err) console.log(`ERROR: ${err}`);
 
             // Save file with new filename (that has a number added to it)
-            let newFileName = `${fileName} (${files.length + 1})${fileType}`;
+            let newFileName = `${fileName} (${files.length + 1})`;
             console.log(newFileName);
             filerec.mv(__dirname + "/files/" + newFileName, (err) => {
                 if(err) {
@@ -80,6 +80,7 @@ app.post("/upload", (req, res) => {
                     console.log(filerec.name);
                     const file = new File({
                         name: newFileName,
+                        fullName: `${newFileName}${fileType}`,
                         type: filerec.name.substring(filerec.name.lastIndexOf(".")),
                         size: filerec.size
                     });
@@ -107,7 +108,8 @@ app.post("/upload", (req, res) => {
                     console.log(`Saved file at ${pathname}`);
                     console.log(filerec.name);
                     const file = new File({
-                        name: filerec.name,
+                        name: fileName,
+                        fullName: filerec.name,
                         type: filerec.name.substring(filerec.name.lastIndexOf(".")),
                         size: filerec.size
                     });
@@ -133,7 +135,8 @@ app.post("/upload", (req, res) => {
                 console.log(`Saved file at ${pathname}`);
                 console.log(filerec.name);
                 const file = new File({
-                    name: filerec.name,
+                    name: fileName,
+                    fullName: filerec.name,
                     type: filerec.name.substring(filerec.name.lastIndexOf(".")),
                     size: filerec.size
                 });
