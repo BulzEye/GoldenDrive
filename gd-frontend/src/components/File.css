@@ -10,13 +10,14 @@
     position: relative;
 }
 
-/* span.nameText {
-    margin: 2px 0px;
+/* span.nameText:first-child {
+    padding: 10px 0px;
 } */
 
 input#fileNameInput {
     font-size: 1rem;
     padding: 0px;
+    margin: -1px 0px;
 }
 
 div.fileMenu {
