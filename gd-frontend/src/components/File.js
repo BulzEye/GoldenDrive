@@ -31,6 +31,10 @@ const File = (props) => {
         // }
     });
 
+    const refRightClick = useOutsideClick((e) => {
+        setRMenuOpen(false);
+    }, "contextmenu");
+
     
     // function that ensures setFileName changes value of state as well as that of similarly named ref 
     // (trick to ensure value of state does not freeze inside setEventListener)
@@ -44,6 +48,7 @@ const File = (props) => {
     const menuOpenClose = (e) => {
         // console.log(e);
         setMenuOpen(!menuOpen);
+        setRMenuOpen(false);
         // e.stopPropagation();
     }
 
@@ -100,6 +105,7 @@ const File = (props) => {
     const enterRenameMode = (e) => {  
         // close side menu
         setMenuOpen(false);
+        setRMenuOpen(false);
         
         // we use renameModeRef instead of the renameModeState. This is because 
         // we also use this function inside the window click listener. The value 
@@ -133,11 +139,12 @@ const File = (props) => {
     }
 
     return ( 
-        <div className="fileItem" onContextMenu={(e) => {
+        <div className="fileItem" ref={refRightClick} onContextMenu={(e) => {
             // console.log(e);
             e.preventDefault();
             setRMenuPos([e.pageX, e.pageY]);
             setRMenuOpen(true);
+            setMenuOpen(false);
         }
         }>
             <form onSubmit={exitRenameMode}>
@@ -173,7 +180,7 @@ const File = (props) => {
                 </div>}
                 <div className="menu rightClickMenu" style={{display: (rmenuOpen ? "block" : "none"), left: rmenuPos[0], top: rmenuPos[1]}}>
                     <ul>
-                        <li>Rename</li>
+                        <li onClick={enterRenameMode}>Rename</li>
                         <hr />
                         <li onClick={deleteFile}>Delete</li>
                     </ul>
