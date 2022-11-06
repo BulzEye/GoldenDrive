@@ -6,6 +6,8 @@ const fs = require("fs");
 
 const app = express();
 
+app.use(express.json());
+
 app.use(fileUpload({
     createParentPath: true
 }));
@@ -200,4 +202,35 @@ app.delete("/deletefile/:id", (req, res) => {
     });
 })
 
+app.post("/renamefile", (req, res) => {
+    const id = req.body.id;
+    const newName = req.body.newFileName;
+    
+    File.findById(id)
+    .then((file) => {
+        const newFullName = newName + file.type;
+        fs.rename(`./files/${file.fullName}`, `./files/${newFullName}`, (err) => {
+            if(err) {
+                console.log(`ERROR in renaming file in filesystem: ${err}`);
+                res.status(404).send({error: err});
+            }
+            console.log("Renamed file in filesystem");
+            file.name = newName;
+            file.fullName = newFullName;
+            File.findByIdAndUpdate(id, file, {new: true})
+            .then((resFile) => {
+                console.log("Renamed file in database");
+                res.json(resFile);
+            })
+            .catch((err) => {
+                console.log(`ERROR in renaming file in database: ${err}`);
+                res.status(404).json({error: err});
+            })
 
+        })
+    })
+    .catch((err) => {
+        console.log(`ERROR in finding file: ${err}`);
+        res.status(404).json({error: err});
+    })
+})

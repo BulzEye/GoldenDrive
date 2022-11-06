@@ -3,19 +3,19 @@ const { ConnectionCreatedEvent } = require("mongoose/node_modules/mongodb");
 const Schema = mongoose.Schema;
 
 const fileSchema = new Schema({
-    name: {
+    name: { // name without extension (eg: filename)
         type: String,
         required: true
     },
-    fullName: {
+    fullName: { // name with extension attached (eg: filename.txt)
         type: String,
         required: true
     },
-    type: {
+    type: { // extension (eg: .txt)
         type: String,
         required: true
     },
-    size: {
+    size: { // size in bytes (TODO: check whether it is really in bytes or something else)
         type: Number,
         required: true
     }
