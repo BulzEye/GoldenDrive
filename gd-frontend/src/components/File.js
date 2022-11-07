@@ -122,6 +122,22 @@ const File = (props) => {
 
     }
 
+    const downloadFile = () => {
+        console.log("Downloading file...");
+        fetch(`/downloadfile/${props.info._id}`)
+        .then((res) => res.blob())
+        .then((blob) => {
+            let url = window.URL.createObjectURL(blob);
+	        let a = document.createElement('a');
+	        a.href = url;
+	        a.download = props.info.fullName;
+	        a.click();
+        })
+        .catch((err) => {
+            console.log(`ERROR in downloading file: ${err}`);
+        })
+    };
+
     const deleteFile = () => {
         if(window.confirm("Do you want to delete this file?")) {
             // console.log("true");
@@ -172,21 +188,22 @@ const File = (props) => {
             <div className="fileMenu">
                 <i className="bi bi-three-dots-vertical" ref={ref} onClick={menuOpenClose}></i>
                 {/* <i className="material-icons">more_vert</i> */}
-                {menuOpen && <div className="menu" onClick={(e) => e.preventDefault()}>
+                {menuOpen && <div className="menu">
                     <ul>
-                        <li onClick={enterRenameMode}>Rename</li>
-                        <hr />
+                        <li onClick={enterRenameMode}>Rename</li><hr />
+                        <li onClick={downloadFile}>Download</li><hr />
                         <li onClick={deleteFile}>Delete</li>
                     </ul>
                 </div>}
                 {rmenuOpen && <div className="menu rightClickMenu" style={{ left: rmenuPos[0], top: rmenuPos[1]}}>
                     <ul>
-                        <li onClick={enterRenameMode}>Rename</li>
-                        <hr />
+                        <li onClick={enterRenameMode}>Rename</li><hr />
+                        <li onClick={downloadFile}>Download</li><hr />
                         <li onClick={deleteFile}>Delete</li>
                     </ul>
                 </div>}
             </div>
+
         </div>
      );
 }

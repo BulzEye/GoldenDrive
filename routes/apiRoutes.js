@@ -13,4 +13,6 @@ router.delete("/deletefile/:id", controller.delete_file);
 
 router.post("/renamefile", controller.post_rename);
 
+router.get("/downloadfile/:id", controller.get_downloadfile);
+
 module.exports = router;

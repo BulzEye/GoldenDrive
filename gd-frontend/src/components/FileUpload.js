@@ -1,9 +1,8 @@
-import { process_params } from "express/lib/router";
-import { useState } from "react";
+// import { useState } from "react";
 import "./FileUpload.css"
 
 const FileUpload = (props) => {
-    const [file, setFile] = useState(null);
+    // const [file, setFile] = useState(null);
 
     // TODO: change it so that file is uploaded immediately after it is selected
 
@@ -13,7 +12,7 @@ const FileUpload = (props) => {
         const formData = new FormData();
         formData.append('myFile', files[0]);
         // setFile(formData);
-        console.log(files[0]);
+        // console.log(files[0]);
         fetch(`/uploadCheck/${files[0].name}`)
         .then((res) => res.json())
         .then((response) => {
@@ -27,7 +26,7 @@ const FileUpload = (props) => {
                 })
                 .then((res) => {
                     console.log("Uploaded file");
-                    console.log(res);
+                    // console.log(res);
                     if(res.status === 200) {
                         alert("File uploaded");
                     }
@@ -67,18 +66,18 @@ const FileUpload = (props) => {
         });
     }
 
-    let submitFile = () => {
-        fetch("/upload", {
-            method: "POST",
-            body: file
-        })
-        .then(() => {
-            console.log("Uploaded file");
-        })
-        .catch((err) => {
-            console.log("ERROR uploading file: " + err);
-        });
-    }
+    // let submitFile = () => {
+    //     fetch("/upload", {
+    //         method: "POST",
+    //         body: file
+    //     })
+    //     .then(() => {
+    //         console.log("Uploaded file");
+    //     })
+    //     .catch((err) => {
+    //         console.log("ERROR uploading file: " + err);
+    //     });
+    // }
 
     return ( 
         <div className="upload">

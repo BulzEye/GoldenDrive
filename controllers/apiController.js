@@ -214,3 +214,17 @@ module.exports.post_rename = (req, res) => {
         res.status(404).json({error: err});
     })
 };
+
+module.exports.get_downloadfile = (req, res) => {
+    const id = req.params.id;
+    File.findById(id)
+    .then((file) => {
+        const filepath = fileDir + file.fullName;
+        res.download(filepath, (err) => {
+            if(err) console.log(err);
+        });
+    })
+    .catch((err) => {
+        console.log(`ERROR in fetching file from database for download: ${err}`);
+    })
+}
