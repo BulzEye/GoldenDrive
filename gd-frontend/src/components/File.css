@@ -100,7 +100,7 @@ div.fileMenu:hover i {
 }
 
 .menu.rightClickMenu {
-    display: none;
+    /* display: none; */
     position: fixed;
     width: auto;
     right: auto;

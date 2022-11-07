@@ -33,6 +33,7 @@ const File = (props) => {
 
     const refRightClick = useOutsideClick((e) => {
         setRMenuOpen(false);
+        setMenuOpen(false);
     }, "contextmenu");
 
     
@@ -178,13 +179,13 @@ const File = (props) => {
                         <li onClick={deleteFile}>Delete</li>
                     </ul>
                 </div>}
-                <div className="menu rightClickMenu" style={{display: (rmenuOpen ? "block" : "none"), left: rmenuPos[0], top: rmenuPos[1]}}>
+                {rmenuOpen && <div className="menu rightClickMenu" style={{ left: rmenuPos[0], top: rmenuPos[1]}}>
                     <ul>
                         <li onClick={enterRenameMode}>Rename</li>
                         <hr />
                         <li onClick={deleteFile}>Delete</li>
                     </ul>
-                </div>
+                </div>}
             </div>
         </div>
      );
