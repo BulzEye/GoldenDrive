@@ -15,9 +15,15 @@ const fileSchema = new Schema({
         type: String,
         required: true
     },
-    size: { // size in bytes (TODO: check whether it is really in bytes or something else)
+    size: { // size in bytes (TODO: check whether it is really in bytes or something else - CONFIRMED)
         type: Number,
         required: true
+    },
+    lastModified: {
+        type: Date
+    },
+    lastModifiedMs: {
+        type: Number
     }
 }, { timestamps: true });
 
